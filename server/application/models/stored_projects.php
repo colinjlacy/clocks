@@ -4,7 +4,6 @@
 
 class Stored_projects extends CI_Model {
 
-    var $id         		= '';
     var $parent     		= '';
 	var $title				= '';
 	var $hourly_rate		= '';

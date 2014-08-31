@@ -21,17 +21,17 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `projects` (
-  `id` int(50) NOT NULL,
+  `id` int(50) NOT NULL AUTO_INCREMENT,
   `parent` int(50) DEFAULT NULL,
   `title` varchar(244) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `hourly_rate` float DEFAULT NULL,
   `time_spent` int(244) NOT NULL,
   `time_budgeted` int(244) DEFAULT NULL,
   `owner` int(50) NOT NULL,
-  `access` bigint(20) unsigned AUTO_INCREMENT,
+  `access` varchar(244) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
   UNIQUE KEY `id_2` (`id`),
-  UNIQUE KEY `access` (`access`),
-  KEY `id_3` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `id_3` (`id`),
+  KEY `id_4` (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
