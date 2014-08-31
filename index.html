@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="clocks">
+<head>
+    <title>This Title!</title>
+
+	<!--styles-->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+
+	<!--angular-->
+	<script src="app/angular/angular.min.js"></script>
+
+	<!--app-->
+	<script src="app/app.js"></script>
+
+	<!--controllers-->
+	<script src="app/controllers/clockCtrl.js"></script>
+
+	<!--services-->
+	<script src="app/services/clockSrvc.js"></script>
+</head>
+<body ng-controller="clockCtrl">
+    <div class="jumbotron">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<h1>Clockworks</h1>
+					<p class="lead">A time-tracking app built in Bootstrap 3, AngularJS, and CodeIgniter</p>
+				</div>
+			</div>
+		</div>
+    </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<p class="alert alert-info" ng-show="message">{{message}}</p>
+				<form class="form">
+					<label class="control-label">Give your project a title
+						<input type="text" ng-model="projectTitle" class="form-control"/>
+					</label>
+					<button class="btn btn-primary" ng-click="submitProject()">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
