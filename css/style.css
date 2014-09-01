@@ -1,0 +1,58 @@
+html {
+	height: 100%;
+	position: relative;
+}
+body {
+	padding-left: 325px;
+	position: relative;
+	height: 100%;
+}
+#admin-panel {
+	width: 325px;
+	position: fixed;
+	height: 100%;
+	left: 0;
+	color: #ffffff;
+	padding-top: 2em;
+}
+#admin-panel header {
+	display: block;
+	float: none;
+}
+#admin-panel p {
+	font-size: 16px;
+	margin-bottom: 1.5em;
+}
+#admin-panel strong {
+	display: block;
+	border-bottom: 1px solid black;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	text-align: center;
+}
+.add-button {
+	border-top: 1px solid #000000;
+}
+.add-button:hover {
+	background-color: #000000;
+	cursor: pointer;
+}
+nav ul {
+	list-style: none;
+	padding-left: 0;
+}
+nav li {
+	color: #ffffff;
+	display: block;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid #000000;
+	cursor: pointer;
+	background-color: #222222;
+}
+nav li:hover {
+	background-color: #000000;
+}
+nav li:first-child {
+	border-top: 1px solid #000000;
+}

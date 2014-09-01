@@ -6,6 +6,7 @@
 	<!--styles-->
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="css/style.css">
 
 	<!--angular-->
 	<script src="app/angular/angular.min.js"></script>
@@ -20,19 +21,26 @@
 	<script src="app/services/clockSrvc.js"></script>
 </head>
 <body ng-controller="clockCtrl">
-    <div class="jumbotron">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12">
-					<h1>Clockworks</h1>
-					<p class="lead">A time-tracking app built in Bootstrap 3, AngularJS, and CodeIgniter</p>
-				</div>
+    <div id="admin-panel" class="navbar-inverse">
+		<div class="row">
+			<div class="col-sm-12">
+				<header class="col-sm-12">
+					<h1 class="text-center">Clockish</h1>
+					<p class="text-left text-muted">A time-tracking app built in Bootstrap 3, AngularJS, and CodeIgniter</p>
+				</header>
+				<strong class="add-button">Add New Project</strong>
+				<strong class="">Your Projects</strong>
+				<nav class="nav">
+					<ul>
+						<li class="text-center" ng-repeat="project in projects">{{project.title}}</li>
+					</ul>
+				</nav>
 			</div>
 		</div>
     </div>
-	<div class="container">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-sm-12">
+			<div class="col-sm-10 col-sm-push-1">
 				<p class="alert alert-info" ng-show="message">{{message}}</p>
 				<form class="form">
 					<label class="control-label">Give your project a title
@@ -40,6 +48,11 @@
 					</label>
 					<button class="btn btn-primary" ng-click="submitProject()">Submit</button>
 				</form>
+			</div>
+		</div>
+		<div class="row" ng-repeat="project in projects">
+			<div class="col-sm-10 col-sm-push-1">
+				{{project.title}}
 			</div>
 		</div>
 	</div>

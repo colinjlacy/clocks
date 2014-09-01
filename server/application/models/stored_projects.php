@@ -4,13 +4,13 @@
 
 class Stored_projects extends CI_Model {
 
-    var $parent     		= '';
-	var $title				= '';
-	var $hourly_rate		= '';
-	var $time_spent			= '';
-	var $time_budgeted		= '';
-	var $owner				= '';
-	var $access				= '';
+    var $parent;
+	var $title;
+	var $hourly_rate;
+	var $time_spent = 0;
+	var $time_budgeted;
+	var $owner;
+	var $access;
 
 	function __construct()
 	{
@@ -28,6 +28,12 @@ class Stored_projects extends CI_Model {
 
 		// run the insert script
 		$this->db->insert('projects', $this);
+	}
+
+	function get_projects()
+	{
+		$query = $this->db->get('projects');
+		return $query->result();
 	}
 
 }
