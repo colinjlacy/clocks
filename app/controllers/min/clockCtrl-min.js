@@ -1,0 +1,1 @@
+angular.module("clocks").controller("clockCtrl",function(o,c,n){o.user=1,o.loadProjects=function(){n.loadProjects().then(function(c){o.projects=c})},o.loadProjects(),o.addNew=function(){c.path("/add-new/")}});

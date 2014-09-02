@@ -1,0 +1,1 @@
+angular.module("clocks").controller("addCtrl",function(o,e,n){o.submitProject=function(){n.insertProject(o.projectTitle,o.user).then(function(e){o.message=e})},o.convert=function(){var e=n.convertToSeconds(o.addHours,o.addMinutes,o.addSeconds);console.log(e)},o.revert=function(){var e=n.revertFromSeconds(o.spentSeconds);console.log(e)}});

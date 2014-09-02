@@ -2,18 +2,29 @@ html {
 	height: 100%;
 	position: relative;
 }
-body {
-	padding-left: 325px;
-	position: relative;
-	height: 100%;
+@media (min-width: 769px) {
+	body {
+		padding-left: 325px;
+		position: relative;
+		height: 100%;
+	}
 }
+
+/*Styling the admin panel*/
 #admin-panel {
-	width: 325px;
-	position: fixed;
-	height: 100%;
-	left: 0;
+	width: 100%;
 	color: #ffffff;
-	padding-top: 2em;
+	text-align: center;
+}
+@media (min-width: 769px) {
+	#admin-panel {
+		width: 325px;
+		position: fixed;
+		height: 100%;
+		left: 0;
+		padding-top: 2em;
+		text-align: left;
+	}
 }
 #admin-panel header {
 	display: block;
@@ -55,4 +66,15 @@ nav li:hover {
 }
 nav li:first-child {
 	border-top: 1px solid #000000;
+}
+
+/*Styling content*/
+#content-area {
+	padding-top: 3em;
+}
+
+/*Project Submission Form*/
+label {
+	width: 100%;
+	margin-bottom: 1em;
 }

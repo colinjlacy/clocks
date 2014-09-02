@@ -10,12 +10,14 @@
 
 	<!--angular-->
 	<script src="app/angular/angular.min.js"></script>
+	<script src="app/angular/angular-route.js"></script>
 
 	<!--app-->
 	<script src="app/app.js"></script>
 
 	<!--controllers-->
 	<script src="app/controllers/clockCtrl.js"></script>
+	<script src="app/controllers/addCtrl.js"></script>
 
 	<!--services-->
 	<script src="app/services/clockSrvc.js"></script>
@@ -26,9 +28,10 @@
 			<div class="col-sm-12">
 				<header class="col-sm-12">
 					<h1 class="text-center">Clockish</h1>
-					<p class="text-left text-muted">A time-tracking app built in Bootstrap 3, AngularJS, and CodeIgniter</p>
+					<p class="text-muted text-center">(Working title...)</p>
+					<p class="text-muted">A time-tracking app built in Bootstrap 3, AngularJS, and CodeIgniter</p>
 				</header>
-				<strong class="add-button">Add New Project</strong>
+				<strong class="add-button" ng-click="addNew()">Add New Project</strong>
 				<strong class="">Your Projects</strong>
 				<nav class="nav">
 					<ul>
@@ -41,18 +44,9 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-10 col-sm-push-1">
-				<p class="alert alert-info" ng-show="message">{{message}}</p>
-				<form class="form">
-					<label class="control-label">Give your project a title
-						<input type="text" ng-model="projectTitle" class="form-control"/>
-					</label>
-					<button class="btn btn-primary" ng-click="submitProject()">Submit</button>
-				</form>
-			</div>
-		</div>
-		<div class="row" ng-repeat="project in projects">
-			<div class="col-sm-10 col-sm-push-1">
-				{{project.title}}
+				<div id="content-area">
+					<ng-view></ng-view>
+				</div>
 			</div>
 		</div>
 	</div>

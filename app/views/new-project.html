@@ -1,0 +1,45 @@
+<div ng-controller="addCtrl">
+<h2 class="text-center">Create a New Project</h2>
+<hr>
+<form class="form">
+
+	<label class="control-label">Give your project a title</label>
+	<input type="text" ng-model="projectTitle" class="form-control"/>
+	<hr>
+	<div class="row">
+		<div class="col-sm-6">
+			<label class="control-label">Is there an hourly rate for this project?</label>
+			<div class="input-group">
+				<span class="input-group-addon">$</span>
+				<input type="number" ng-model="projectRate" class="form-control"/>
+				<span class="input-group-addon">per hr</span>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<label class="control-label">Is there a target time for this project?</label>
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="number" ng-model="addHours" class="form-control"/>
+						<span class="input-group-addon">hours</span>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="number" ng-model="addMinutes" class="form-control"/>
+						<span class="input-group-addon">minutes</span>
+					</div>
+				</div>
+				<div class="col-sm-4">
+					<div class="input-group">
+						<input type="number" ng-model="addSeconds" class="form-control"/>
+						<span class="input-group-addon">seconds</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr>
+	<button class="btn btn-primary" ng-click="revert()">Submit</button>
+</form>
+</div>
