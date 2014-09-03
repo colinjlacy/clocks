@@ -25,6 +25,9 @@ class Stored_projects extends CI_Model {
 		// ratchet out that data to the local variables
 		$this->title = $post_data['title'];
 		$this->owner = 1;
+		$this->hourly_rate = $post_data['hourly_rate'];
+		$this->time_spent = $post_data['time_spent'];
+		$this->time_budgeted = $post_data['time_budgeted'];
 
 		// run the insert script
 		$this->db->insert('projects', $this);

@@ -1,45 +1,69 @@
 <div ng-controller="addCtrl">
-<h2 class="text-center">Create a New Project</h2>
-<hr>
-<form class="form">
-
-	<label class="control-label">Give your project a title</label>
-	<input type="text" ng-model="projectTitle" class="form-control"/>
-	<hr>
 	<div class="row">
-		<div class="col-sm-6">
-			<label class="control-label">Is there an hourly rate for this project?</label>
-			<div class="input-group">
-				<span class="input-group-addon">$</span>
-				<input type="number" ng-model="projectRate" class="form-control"/>
-				<span class="input-group-addon">per hr</span>
-			</div>
-		</div>
-		<div class="col-sm-6">
-			<label class="control-label">Is there a target time for this project?</label>
-			<div class="row">
-				<div class="col-sm-4">
-					<div class="input-group">
-						<input type="number" ng-model="addHours" class="form-control"/>
-						<span class="input-group-addon">hours</span>
+		<div class="col-sm-6 col-sm-push-3">
+			<h2 class="text-center">Create a New Project</h2>
+			<hr>
+			<form class="form">
+				<div class="row">
+					<div class="col-sm-12">
+						<label class="control-label">Give your project a title</label>
+						<input type="text" ng-model="projectTitle" class="form-control"/>
 					</div>
 				</div>
-				<div class="col-sm-4">
-					<div class="input-group">
-						<input type="number" ng-model="addMinutes" class="form-control"/>
-						<span class="input-group-addon">minutes</span>
+				<hr>
+				<div class="row">
+					<div class="col-sm-12">
+						<label class="control-label">Is there an hourly rate for this project?</label>
+						<div class="input-group">
+							<span class="input-group-addon">$</span>
+							<input type="number" ng-model="projectRate" class="form-control"/>
+							<span class="input-group-addon">per hr</span>
+						</div>
 					</div>
 				</div>
-				<div class="col-sm-4">
-					<div class="input-group">
-						<input type="number" ng-model="addSeconds" class="form-control"/>
-						<span class="input-group-addon">seconds</span>
+				<hr>
+				<div class="row">
+					<div class="col-sm-12">
+						<label class="control-label">Is there a target time for this project?</label>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="input-group">
+									<input type="number" ng-model="targetHours" class="form-control" ng-class="{'text-muted':(targetHours == 0)}"/>
+									<span class="input-group-addon">hrs</span>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="input-group">
+									<input type="number" ng-model="targetMinutes" class="form-control" ng-class="{'text-muted':(targetMinutes == 0)}"/>
+									<span class="input-group-addon">mins</span>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
+				<hr>
+				<div class="row">
+					<div class="col-sm-12">
+						<label class="control-label">Have you already put in time on this project?</label>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="input-group">
+									<input type="number" ng-model="addHours" class="form-control" ng-class="{'text-muted':(addHours == 0)}"/>
+									<span class="input-group-addon">hrs</span>
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="input-group">
+									<input type="number" ng-model="addMinutes" class="form-control" ng-class="{'text-muted':(addMinutes == 0)}"/>
+									<span class="input-group-addon">mins</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<button class="btn btn-primary" ng-click="insertProject()">Submit</button>
+			</form>
 		</div>
 	</div>
-	<hr>
-	<button class="btn btn-primary" ng-click="revert()">Submit</button>
-</form>
 </div>

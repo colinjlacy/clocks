@@ -21,33 +21,29 @@ angular.module("clocks")
 				// returns the promise of the API call - whether successful or not
 				return returnData.promise;
 			},
-
-			insertProject: function(title, user) {
+			insertProject: function(obj) {
+				// tell Angular to wait for iiiiiiiiiiiit....
 				var returnData = $q.defer();
 
 				$http({
 					url: "server/index.php/projects/insert",
 					method: "POST",
-					data: {
-						title: title,
-						user: user
-					}
+					data: obj
 				})
 					.success(function(data) {
 						returnData.resolve(data);
 					})
 					.error(function(error) {
 						console.log(error);
-						returnData.reject();
+						returnData.reject(error);
 					});
 				// returns the promise of the API call - whether successful or not
 				return returnData.promise;
 			},
-
 			convertToSeconds: function(hours, minutes, seconds) {
+				console.log(hours+", "+minutes+", "+seconds);
 				return (hours * 3600) + (minutes * 60) + seconds;
 			},
-
 			revertFromSeconds: function(seconds) {
 				var hours = Math.floor(seconds/3600),
 					minutes = Math.floor((seconds-hours*3600)/60),
@@ -57,6 +53,22 @@ angular.module("clocks")
 					hours: hours,
 					minutes: minutes,
 					seconds: newSeconds
+				}
+			},
+			processInputs: function(rate, targetHours, targetMinutes, addHours, addMinutes) {
+				// convert any time inputs to seconds
+				var revisedTarget = this.convertToSeconds(targetHours, targetMinutes, 0);
+				var revisedAdd = this.convertToSeconds(addHours, addMinutes, 0);
+
+				// analyze time and rate inputs - nullify if nothing has been entered
+				revisedTarget = (revisedTarget == 0 || isNaN(revisedTarget)) ? null : revisedTarget;
+				revisedAdd = isNaN(revisedAdd) ? 0 : revisedAdd;
+				rate = (rate == 0) ? null : rate;
+
+				return {
+					hourly_rate: rate,
+					time_budgeted: revisedTarget,
+					time_spent: revisedAdd
 				}
 			}
 		}
