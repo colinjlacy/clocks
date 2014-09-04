@@ -39,6 +39,11 @@ class Stored_projects extends CI_Model {
 		return $query->result();
 	}
 
+	function retrieve_project($id)
+	{
+		return $this->db->get_where('projects', array('id' => $id), 1)->row();
+	}
+
 }
 
     /* End of file stored_projects.php */

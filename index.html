@@ -18,6 +18,7 @@
 	<!--controllers-->
 	<script src="app/controllers/clockCtrl.js"></script>
 	<script src="app/controllers/addCtrl.js"></script>
+	<script src="app/controllers/projectCtrl.js"></script>
 
 	<!--services-->
 	<script src="app/services/clockSrvc.js"></script>
@@ -35,7 +36,11 @@
 				<strong class="">Your Projects</strong>
 				<nav class="nav">
 					<ul>
-						<li class="text-center" ng-repeat="project in projects">{{project.title}}</li>
+						<li class="text-center" ng-repeat="project in projects">
+							<a href="http://localhost:8888/clock/#/project/{{project.id}}">
+								{{project.title}}
+							</a>
+						</li>
 					</ul>
 				</nav>
 			</div>

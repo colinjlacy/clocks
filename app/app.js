@@ -8,4 +8,7 @@ angular.module("clocks", [
 		$routeProvider.when("/add-new/", {
 			templateUrl: "app/views/new-project.html"
 		});
+		$routeProvider.when("/project/:id", {
+			templateUrl: "app/views/view-project.html"
+		});
 	}]);

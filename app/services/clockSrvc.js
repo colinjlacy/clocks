@@ -4,6 +4,8 @@
 angular.module("clocks")
 .factory("clockSrvc", function($http, $q) {
 		return {
+
+			// database operations
 			loadProjects: function() {
 				var returnData = $q.defer();
 
@@ -40,6 +42,30 @@ angular.module("clocks")
 				// returns the promise of the API call - whether successful or not
 				return returnData.promise;
 			},
+			getProject: function(id) {
+				// tell Angular to wait for iiiiiiiiiiiit....
+				var returnData = $q.defer();
+
+				$http({
+					url: "server/index.php/projects/retrieve/" + id,
+					method: "GET",
+//					params: {
+//						id: id
+//					}
+				})
+					.success(function(data) {
+						console.log(data);
+						returnData.resolve(data);
+					})
+					.error(function(error) {
+						console.log(error);
+						returnData.reject(error);
+					});
+				// returns the promise of the API call - whether successful or not
+				return returnData.promise;
+			},
+
+			// helper functions that process data
 			convertToSeconds: function(hours, minutes, seconds) {
 				console.log(hours+", "+minutes+", "+seconds);
 				return (hours * 3600) + (minutes * 60) + seconds;

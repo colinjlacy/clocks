@@ -52,7 +52,7 @@ nav ul {
 	list-style: none;
 	padding-left: 0;
 }
-nav li {
+nav li a {
 	color: #ffffff;
 	display: block;
 	padding-top: 15px;
@@ -61,10 +61,11 @@ nav li {
 	cursor: pointer;
 	background-color: #222222;
 }
-nav li:hover {
+nav li a:hover {
 	background-color: #000000;
+	color: #ffffff;
 }
-nav li:first-child {
+nav li a:first-child {
 	border-top: 1px solid #000000;
 }
 
@@ -77,4 +78,17 @@ nav li:first-child {
 label {
 	width: 100%;
 	margin-bottom: 1em;
+}
+
+/*View Project*/
+#timer {
+	font-family: courier, monospace;
+	font-size: 6em;
+}
+.ultralight {
+	color: #CCCCCC;
+}
+.unit {
+	font-size: 2rem;
+	font-weight: normal;
 }

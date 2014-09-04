@@ -1,0 +1,1 @@
+angular.module("clocks").controller("projectCtrl",function(e,o,t,r){e.loadProject=function(){var t=o.id;r.getProject(t).then(function(o){o.time=r.revertFromSeconds(o.time_spent),e.viewProject=o})},e.loadProject()});

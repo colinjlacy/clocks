@@ -1,0 +1,18 @@
+<div ng-controller="projectCtrl">
+	<div class="row">
+		<div class="col-sm-8 col-sm-push-2 text-center">
+			<figure id="timer" class="text-muted">
+				<strong ng-class="{ultralight: (viewProject.time.hours == 0)}">{{viewProject.time.hours}}<span class="unit">hrs.</span></strong>&nbsp;
+				<strong ng-class="{ultralight: (viewProject.time.minutes == 0)}">{{viewProject.time.minutes}}<span class="unit">min.</span></strong>&nbsp;
+				<strong ng-class="{ultralight: (viewProject.time.seconds == 0)}">{{viewProject.time.seconds}}<span class="unit">sec.</span></strong>
+			</figure>
+			<hr>
+			<header>
+				<h2>{{viewProject.title}}</h2>
+			</header>
+			<hr>
+			<button class="btn btn-success" ng-class="{disabled: running}">Start Timer</button>
+			<button class="btn btn-danger" ng-class="{disabled: !(running)}">Stop Timer</button>
+		</div>
+	</div>
+</div>

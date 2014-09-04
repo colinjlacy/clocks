@@ -26,6 +26,18 @@ class Projects extends CI_Controller {
 		$this->load->view("ajax_test");
 	}
 
+	public function retrieve($id)
+	{
+		// load the Projects data model
+		$this->load->model('Stored_projects');
+
+		// run the insert_project method
+		$data = $this->Stored_projects->retrieve_project($id);
+
+		// echo the data Angular (notice I'm not passing it to a view - need it in assoc array form)
+		echo json_encode($data);
+	}
+
 
 }
 
