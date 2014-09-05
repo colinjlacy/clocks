@@ -111,11 +111,11 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 1
 		},
-	"\/app\/services\/clockSrvc.js": {
+	"\/app\/services\/dbSrvc.js": {
 		"fileType": 64,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/app\/services\/clockSrvc.js",
+		"inputAbbreviatedPath": "\/app\/services\/dbSrvc.js",
 		"outputAbbreviatedPath": "\/app\/services\/min\/clockSrvc-min.js",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,

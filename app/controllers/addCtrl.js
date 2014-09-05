@@ -1,5 +1,5 @@
 angular.module("clocks")
-	.controller("addCtrl", function($scope, $location, $rootScope, clockSrvc) {
+	.controller("addCtrl", function($scope, $location, $rootScope, dbSrvc) {
 
 		// placeholder values
 		$scope.projectTitle = "Should append to project list";
@@ -12,19 +12,19 @@ angular.module("clocks")
 
 		// submitting a project to the database
 		$scope.submitProject = function() {
-			// using the insertProject method of clockSrvc
-			clockSrvc.insertProject($scope.projectTitle, $scope.user).then(function(data) {
+			// using the insertProject method of dbSrvc
+			dbSrvc.insertProject($scope.projectTitle, $scope.user).then(function(data) {
 				$scope.message = data;
 			});
 		};
 
 		$scope.insertProject = function() {
 
-			var project = clockSrvc.processInputs($scope.projectRate, $scope.targetHours, $scope.targetMinutes, $scope.addHours, $scope.addMinutes);
+			var project = dbSrvc.processInputs($scope.projectRate, $scope.targetHours, $scope.targetMinutes, $scope.addHours, $scope.addMinutes);
 			project.title = $scope.projectTitle;
 			project.owner = $scope.user;
 
-			clockSrvc.insertProject(project).then(function(data) {
+			dbSrvc.insertProject(project).then(function(data) {
 				$rootScope.projects.push(project);
 				$rootScope.message(data);
 				console.log($rootScope.displayMessage);

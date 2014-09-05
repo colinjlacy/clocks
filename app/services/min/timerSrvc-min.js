@@ -1,0 +1,1 @@
+angular.module("clocks").factory("timerSrvc",function(r,c){return{}});

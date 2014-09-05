@@ -2,7 +2,7 @@
  * Created by colinjlacy on 8/31/14.
  */
 angular.module("clocks")
-.factory("clockSrvc", function($http, $q) {
+.factory("dbSrvc", function($http, $q) {
 		return {
 
 			// database operations

@@ -11,8 +11,8 @@
 				<h2>{{viewProject.title}}</h2>
 			</header>
 			<hr>
-			<button class="btn btn-success" ng-class="{disabled: running}">Start Timer</button>
-			<button class="btn btn-danger" ng-class="{disabled: !(running)}">Stop Timer</button>
+			<button class="btn btn-success" ng-class="{disabled: running}" ng-click="startTimer()">Start Timer</button>
+			<button class="btn btn-danger" ng-class="{disabled: !(running)}" ng-click="stopTimer()">Stop Timer</button>
 		</div>
 	</div>
 </div>
