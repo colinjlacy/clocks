@@ -2,7 +2,6 @@ angular.module("clocks")
 	.controller("addCtrl", function($scope, $location, $rootScope, dbSrvc) {
 
 		// placeholder values
-		$scope.projectTitle = "Should append to project list";
 		$scope.user = 1;
 		$scope.projectRate = 0;
 		$scope.targetHours = 0;
@@ -25,9 +24,11 @@ angular.module("clocks")
 			project.owner = $scope.user;
 
 			dbSrvc.insertProject(project).then(function(data) {
+				project.id = data;
 				$rootScope.projects.push(project);
 				$rootScope.message(data);
 				console.log($rootScope.displayMessage);
+				$location.path('project/'+data);
 			});
 		};
 	});

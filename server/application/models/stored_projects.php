@@ -32,6 +32,7 @@ class Stored_projects extends CI_Model {
 
 		// run the insert script
 		$this->db->insert('projects', $this);
+		return $this->db->insert_id();
 	}
 
 	function get_projects()

@@ -20,10 +20,10 @@ class Projects extends CI_Controller {
 		$this->load->model('Stored_projects');
 
 		// run the insert_project method
-		$this->Stored_projects->insert_project();
+		$id = $this->Stored_projects->insert_project();
 
 		// once data has been inserted, return the view content to the people
-		$this->load->view("ajax_test");
+		echo $id;
 	}
 
 	public function retrieve($id)
