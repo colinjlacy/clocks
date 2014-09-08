@@ -48,7 +48,7 @@ angular.module("clocks")
 
 				$http({
 					url: "server/index.php/projects/retrieve/" + id,
-					method: "GET",
+					method: "GET"
 //					params: {
 //						id: id
 //					}
@@ -63,6 +63,23 @@ angular.module("clocks")
 					});
 				// returns the promise of the API call - whether successful or not
 				return returnData.promise;
+			},
+			updateProject: function(id, seconds) {
+				$http({
+					url: "server/index.php/projects/update",
+					method: "POST",
+					data: {
+						id: id,
+						seconds: seconds
+					}
+				})
+					.success(function(data) {
+						console.log(data);
+						console.log("project saved");
+					})
+					.error(function(error) {
+						console.log(error);
+					});
 			},
 
 			// helper functions that process data

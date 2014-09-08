@@ -38,7 +38,17 @@ class Projects extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	public function update()
+	{
+		// load the Projects data model
+		$this->load->model('Stored_projects');
 
+		// run the insert_project method
+		$this->Stored_projects->update_project();
+
+		// let the people know
+		echo "success";
+	}
 }
 
 /* End of file stored_projects.php */

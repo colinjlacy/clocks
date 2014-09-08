@@ -4,6 +4,7 @@
 
 class Stored_projects extends CI_Model {
 
+	var $id;
     var $parent;
 	var $title;
 	var $hourly_rate;
@@ -42,6 +43,17 @@ class Stored_projects extends CI_Model {
 	function retrieve_project($id)
 	{
 		return $this->db->get_where('projects', array('id' => $id), 1)->row();
+	}
+
+	function update_project()
+	{
+		// get data from the passed JSON object
+		$post_data = json_decode(file_get_contents("php://input"), true);
+
+		$time_spent = $post_data['seconds'];
+
+		$this->db->where('id', $post_data['id']);
+		$this->db->update('projects', array('time_spent' => $time_spent));
 	}
 
 }

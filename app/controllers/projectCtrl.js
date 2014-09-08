@@ -24,28 +24,53 @@ angular.module("clocks")
 		$scope.loadProject();
 
 		$scope.startTimer = function() {
+			// indicate that the timer is running
 			$scope.running = true;
+			// the timer loop
 			$scope.runningTimer = setInterval(function() {
+				// if you've reached 59 seconds locally
 				if ($scope.viewProject.time.seconds == 59) {
+					// restart at 0...
 					$scope.viewProject.time.seconds = 0;
+					// if you've reached 59 minutes as well...
 					if ($scope.viewProject.time.minutes == 59) {
+						// increment the local hours
 						$scope.viewProject.time.hours++;
+						// reset the local minutes
 						$scope.viewProject.time.minutes = 0;
+						// update the listeners
 						$scope.$digest();
+					// otherwise...
 					} else {
+						// increment the minutes
 						$scope.viewProject.time.minutes++;
+						// update the listeners
 						$scope.$digest();
 					}
+					// once those updates are made, update the database AJAXilly
+					$scope.updateProject();
+				// or, if you havne't reached 59 seconds...
 				} else {
+					// increment the local seconds
 					$scope.viewProject.time.seconds++;
+					// update the listeners
 					$scope.$digest();
 				}
-			}, 1000);
+			}, 1000); // happens every 1000 milliseconds, or every second
 		};
 
 		$scope.stopTimer = function() {
+			// indicate that the timer is no longer running
 			$scope.running = false;
+			// clear the setInterval
 			clearInterval($scope.runningTimer);
+		};
+
+		$scope.updateProject = function() {
+			// convert local times to one giant second count
+			var seconds = dbSrvc.convertToSeconds($scope.viewProject.time.hours, $scope.viewProject.time.minutes, $scope.viewProject.time.seconds);
+			// update the project in the database
+			dbSrvc.updateProject($scope.viewProject.id, seconds);
 		}
 
 
