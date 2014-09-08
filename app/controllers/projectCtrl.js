@@ -14,6 +14,13 @@ angular.module("clocks")
 				// revert the time_spent property to a readable time format
 				data.time = dbSrvc.revertFromSeconds(data.time_spent);
 
+				// check for time_budgetted, and if is set revert to readable time format
+				if (data.time_budgeted) {
+					data.budgetDisplay = dbSrvc.revertFromSeconds(data.time_budgeted);
+				}
+
+				data.income = data.hourly_rate * data.time.hours;
+
 				// assign the full set of returned values to the $scope
 				$scope.viewProject = data;
 
@@ -39,23 +46,23 @@ angular.module("clocks")
 						// reset the local minutes
 						$scope.viewProject.time.minutes = 0;
 						// update the listeners
-						$scope.$digest();
 					// otherwise...
 					} else {
 						// increment the minutes
 						$scope.viewProject.time.minutes++;
 						// update the listeners
-						$scope.$digest();
 					}
 					// once those updates are made, update the database AJAXilly
-					$scope.updateProject();
 				// or, if you havne't reached 59 seconds...
 				} else {
 					// increment the local seconds
 					$scope.viewProject.time.seconds++;
 					// update the listeners
-					$scope.$digest();
 				}
+				if ($scope.viewProject.time_budgeted && dbSrvc.convertToSeconds($scope.viewProject.time.hours, $scope.viewProject.time.minutes, $scope.viewProject.time.seconds) > $scope.viewProject.time_budgeted) {
+					$scope.viewProject.overdue = true;
+				}
+				$scope.$digest();
 			}, 1000); // happens every 1000 milliseconds, or every second
 		};
 
@@ -71,7 +78,6 @@ angular.module("clocks")
 			var seconds = dbSrvc.convertToSeconds($scope.viewProject.time.hours, $scope.viewProject.time.minutes, $scope.viewProject.time.seconds);
 			// update the project in the database
 			dbSrvc.updateProject($scope.viewProject.id, seconds);
-		}
-
+		};
 
 	});

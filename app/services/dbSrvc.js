@@ -81,10 +81,24 @@ angular.module("clocks")
 						console.log(error);
 					});
 			},
+			deleteProject: function(id) {
+				$http({
+					url: "server/index.php/projects/delete",
+					method: "POST",
+					data: {
+						id: id
+					}
+				})
+					.success(function(data) {
+						console.log(data);
+					})
+					.error(function(error) {
+						console.log(error);
+					});
+			},
 
 			// helper functions that process data
 			convertToSeconds: function(hours, minutes, seconds) {
-				console.log(hours+", "+minutes+", "+seconds);
 				return (hours * 3600) + (minutes * 60) + seconds;
 			},
 			revertFromSeconds: function(seconds) {

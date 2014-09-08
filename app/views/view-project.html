@@ -1,10 +1,10 @@
 <div ng-controller="projectCtrl">
 	<div class="row">
 		<div class="col-sm-8 col-sm-push-2 text-center">
-			<figure id="timer" class="text-muted">
+			<figure id="timer" class="text-muted" ng-class="{'text-danger': viewProject.overdue}">
 				<strong ng-class="{ultralight: (viewProject.time.hours == 0)}">{{viewProject.time.hours}}<span class="unit">hrs.</span></strong>&nbsp;
 				<strong ng-class="{ultralight: (viewProject.time.minutes == 0 && viewProject.time.hours == 0)}">{{viewProject.time.minutes}}<span class="unit">min.</span></strong>&nbsp;
-				<strong ng-class="{ultralight: (viewProject.time.seconds == 0 && viewProject.time.minutes == 0)}">{{viewProject.time.seconds}}<span class="unit">sec.</span></strong>
+				<strong ng-class="{ultralight: (viewProject.time.seconds == 0 && viewProject.time.minutes == 0 && viewProject.time.hours == 0)}">{{viewProject.time.seconds}}<span class="unit">sec.</span></strong>
 			</figure>
 			<hr>
 			<header>
@@ -14,6 +14,21 @@
 			<button class="btn btn-success" ng-class="{disabled: running}" ng-click="startTimer()">Start Timer</button>
 			<button class="btn btn-danger" ng-class="{disabled: !(running)}" ng-click="stopTimer()">Stop Timer</button>
 			<button class="btn btn-primary fa fa-floppy-o" ng-click="updateProject()"></button>
+			<hr>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-8 col-sm-push-2 text-center" ng-show="viewProject.budgetDisplay">
+			<h3>Time Budgeted</h3>
+			<p class="text-muted lead">{{viewProject.budgetDisplay.hours}} hrs.&nbsp;{{viewProject.budgetDisplay.minutes}} min.</p>
+			<hr>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-8 col-sm-push-2 text-center" ng-show="viewProject.hourly_rate">
+			<h3>Billable Income</h3>
+			<p class="text-muted lead">${{viewProject.income}}</p>
+			<hr>
 		</div>
 	</div>
 </div>

@@ -22,6 +22,12 @@ angular.module("clocks")
 
 		$rootScope.message = function(message) {
 			$rootScope.displayMessage = message;
-		}
+		};
+
+		$scope.deleteProject = function(id, index) {
+			dbSrvc.deleteProject(id).then(function() {
+				$rootScope.projects.splice(index, 1);
+			})
+		};
 
 	});
