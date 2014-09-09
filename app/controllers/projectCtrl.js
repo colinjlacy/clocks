@@ -59,10 +59,13 @@ angular.module("clocks")
 					$scope.viewProject.time.seconds++;
 					// update the listeners
 				}
-				if ($scope.viewProject.time_budgeted && dbSrvc.convertToSeconds($scope.viewProject.time.hours, $scope.viewProject.time.minutes, $scope.viewProject.time.seconds) > $scope.viewProject.time_budgeted) {
+				if (($scope.viewProject.time_budgeted > 0)
+					&& (dbSrvc.convertToSeconds($scope.viewProject.time.hours, $scope.viewProject.time.minutes, $scope.viewProject.time.seconds) > $scope.viewProject.time_budgeted))
+				{
 					$scope.viewProject.overdue = true;
 				}
-				$scope.$digest();
+//				return $scope.viewProject;
+				$scope.$apply();
 			}, 1000); // happens every 1000 milliseconds, or every second
 		};
 
