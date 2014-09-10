@@ -53,6 +53,7 @@ angular.module("clocks")
 						// update the listeners
 					}
 					// once those updates are made, update the database AJAXilly
+					$scope.updateProject();
 				// or, if you havne't reached 59 seconds...
 				} else {
 					// increment the local seconds
