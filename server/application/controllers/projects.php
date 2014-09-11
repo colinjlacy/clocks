@@ -49,6 +49,17 @@ class Projects extends CI_Controller {
 		// let the people know
 		echo "success";
 	}
+
+	public function delete()
+	{
+		// load the Projects data model
+		$this->load->model('Stored_projects');
+
+		// run the insert_project method
+		$data = $this->Stored_projects->delete_project();
+
+
+	}
 }
 
 /* End of file stored_projects.php */

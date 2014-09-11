@@ -35,13 +35,17 @@
 					<p class="text-muted">A time-tracking app built in Bootstrap 3, AngularJS, and CodeIgniter</p>
 				</header>
 				<strong class="add-button" ng-click="addNew()">Add New Project</strong>
+				<strong class="add-button" ng-click="editProjects()" ng-hide="removeProjects">Edit Projects</strong>
+				<strong class="add-button" ng-click="cancelEdit()" ng-show="removeProjects">Done Editing</strong>
 				<strong class="">Your Projects</strong>
 				<nav class="nav">
 					<ul>
 						<li class="text-center" ng-repeat="project in projects">
-							<a href="http://localhost:8888/clock/#/project/{{project.id}}">
+							<button class="remove-button" ng-show="removeProjects" ng-click="remove(project)">-</button>
+							<a href="http://localhost:8888/clock/#/project/{{project.id}}" ng-class="{removable: removeProjects}">
 								{{project.title}}
 							</a>
+							<strong ng-show="project.remove">Are you sure?&nbsp;&nbsp;<a class="btn btn-danger btn-sm" ng-click="deleteProject(project.id, $index)">Yes</a> <a class="btn btn-default btn-sm" ng-click="cancelThisEdit(project)">No</a></strong>
 						</li>
 					</ul>
 				</nav>

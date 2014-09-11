@@ -25,9 +25,29 @@ angular.module("clocks")
 		};
 
 		$scope.deleteProject = function(id, index) {
-			dbSrvc.deleteProject(id).then(function() {
-				$rootScope.projects.splice(index, 1);
-			})
+			dbSrvc.deleteProject(id);
+			$rootScope.projects.splice(index, 1);
 		};
+
+		$scope.editProjects = function() {
+			$scope.removeProjects = true;
+		};
+
+		$scope.cancelEdit = function() {
+			$scope.removeProjects = false;
+			for (var i = 0; i < $scope.projects.length; i++) {
+				$scope.projects[i].remove = false;
+			}
+		};
+
+		$scope.cancelThisEdit = function(project) {
+			project.remove = false;
+		};
+
+		$scope.remove = function(project) {
+			project.remove = true;
+		};
+
+
 
 	});

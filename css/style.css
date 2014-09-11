@@ -52,6 +52,29 @@ nav ul {
 	list-style: none;
 	padding-left: 0;
 }
+nav li {
+	position: relative;
+}
+nav li .remove-button {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 51px;
+	height: 51px;
+	background-color: darkred;
+	color: #ffffff;
+	border: 1px solid #000000;
+	font-size: 3rem;
+	-webkit-transition: 100ms;
+	-moz-transition: 100ms;
+	-ms-transition: 100ms;
+	-o-transition: 100ms;
+	transition: 100ms;
+}
+nav li .remove-button:hover {
+	background-color: red;
+}
+
 nav li a {
 	color: #ffffff;
 	display: block;
@@ -60,6 +83,9 @@ nav li a {
 	border-bottom: 1px solid #000000;
 	cursor: pointer;
 	background-color: #222222;
+}
+nav li a.removable {
+	margin-left: 51px;
 }
 nav li a:hover {
 	background-color: #000000;

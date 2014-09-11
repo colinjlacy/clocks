@@ -57,6 +57,14 @@ class Stored_projects extends CI_Model {
 		$this->db->update('projects', array('time_spent' => $time_spent));
 	}
 
+	function delete_project()
+	{
+		// get data from the passed JSON object
+		$post_data = json_decode(file_get_contents("php://input"), true);
+
+		$this->db->delete('projects', array('id' => $post_data['id']));
+	}
+
 }
 
     /* End of file stored_projects.php */
