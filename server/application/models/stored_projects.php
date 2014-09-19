@@ -36,9 +36,9 @@ class Stored_projects extends CI_Model {
 		return $this->db->insert_id();
 	}
 
-	function get_projects()
+	function get_projects($id)
 	{
-		$query = $this->db->get('projects');
+		$query = $this->db->get_where('projects', array('owner' => $id));
 		return $query->result();
 	}
 

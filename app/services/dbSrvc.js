@@ -6,11 +6,11 @@ angular.module("clocks")
 		return {
 
 			// database operations
-			loadProjects: function() {
+			loadProjects: function(id) {
 				var returnData = $q.defer();
 
 				$http({
-					url: 'server/index.php/projects/load',
+					url: 'server/index.php/projects/load/' + id,
 					method: 'GET'
 				})
 					.success(function(data) {
