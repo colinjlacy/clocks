@@ -22,6 +22,7 @@ class Stored_projects extends CI_Model {
 	{
 		// get data from the passed JSON object
 		$post_data = json_decode(file_get_contents("php://input"), true);
+//		$post_data = $this->input->post();
 
 		// ratchet out that data to the local variables
 		$this->title = $post_data['title'];

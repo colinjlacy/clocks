@@ -2,7 +2,7 @@
  * Created by colinjlacy on 8/31/14.
  */
 angular.module("clocks")
-.controller("clockCtrl", function($scope, $rootScope, $location, dbSrvc) {
+.controller("clockCtrl", function($scope, $rootScope, $location, dbSrvc, $http) {
 
 		// set a default user
 		$scope.user = 1;
@@ -47,7 +47,6 @@ angular.module("clocks")
 		$scope.remove = function(project) {
 			project.remove = true;
 		};
-
 
 
 	});
