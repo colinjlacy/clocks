@@ -696,15 +696,10 @@ class Auth extends CI_Controller {
 		if (!$render) return $view_html;
 	}
 
+	// method created by Colin! to load the user on Angular load...
 	function get_user()
 	{
-		if ($this->ion_auth->logged_in()) {
-			echo "Yeah buddy!";
-		}
-		else
-		{
-			echo "No one here!";
-		}
+		echo $this->ion_auth->get_user_id();
 	}
 
 }

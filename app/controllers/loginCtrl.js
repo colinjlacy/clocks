@@ -4,6 +4,21 @@
 angular.module("clocks")
 	.controller("loginCtrl", function($scope, $q, $rootScope, $http, dbSrvc, userSrvc) {
 
+		// check for a logged-in user on load
+		(function() {
+			userSrvc.checkUser().then(function(result) {
+				if (result) {
+					$rootScope.user = result;
+					dbSrvc.loadProjects(result).then(function(data) {
+						console.log(data);
+						// set them on the rootScope
+						$rootScope.projects = data;
+						//$rootScope.$apply();
+					});
+				}
+			})
+		})();
+
 		// set some basic data
 		$scope.loginUsername = "admin@admin.com";
 		$scope.loginPassword = "password";
