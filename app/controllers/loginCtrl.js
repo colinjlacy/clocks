@@ -4,18 +4,23 @@
 angular.module("clocks")
 	.controller("loginCtrl", function($scope, $q, $rootScope, $http, dbSrvc, userSrvc) {
 
+		$scope.loginState = $rootScope.user ? 2 : 0; // default login state
+
 		// check for a logged-in user on load
 		(function() {
-			userSrvc.checkUser().then(function(result) {
-				if (result.id) {
-					$rootScope.user = result;
-					dbSrvc.loadProjects(result.id).then(function(data) {
-						console.log(data);
-						// set them on the rootScope
-						$rootScope.projects = data;
-					});
-				}
-			})
+			if(!$rootScope.user) {
+				userSrvc.checkUser().then(function(result) {
+					if (result.id) {
+						$rootScope.user = result;
+						$scope.loginState = 2;
+						dbSrvc.loadProjects(result.id).then(function(data) {
+							console.log(data);
+							// set them on the rootScope
+							$rootScope.projects = data;
+						});
+					}
+				})
+			}
 		})();
 
 		// set some basic data
@@ -30,16 +35,12 @@ angular.module("clocks")
 
 				// if there were no backend errors whatsoever
 				if (!login.error) {
-					console.log(login);
 					$rootScope.user = login;
-					console.log(login.id);
+					$scope.loginState = 2;
 					// get the projects for this user from the database
-
 					dbSrvc.loadProjects(login.id).then(function(data) {
-						console.log(data);
 						// set them on the rootScope
 						$rootScope.projects = data;
-						//$rootScope.$apply();
 
 					});
 
@@ -48,6 +49,7 @@ angular.module("clocks")
 			});
 
 		};
+
 
 		$scope.register = {};
 
@@ -71,9 +73,10 @@ angular.module("clocks")
 				//$scope.register.ip
 				'141.164.238.158'
 			).then(function(data) {
-				if (data.success) {
+				if (data.successful) {
 					console.log(data);
 					$rootScope.user = data.user;
+					$scope.loginState = 2;
 				} else {
 					$rootScope.message = "Uh oh, looks like there was an error trying to register your account."
 				}
@@ -85,7 +88,23 @@ angular.module("clocks")
 		};
 
 		$scope.logOutUser = function() {
-			userSrvc.logOutUser()
-		}
+			userSrvc.logOutUser().then(function(data) {
+				if (!data.error) {
+					$rootScope.projects = null;
+					$rootScope.user = null;
+					$scope.loginState = 0;
+				} else {
+					$rootScope.message = "Uh oh, there was a problem logging you out!";
+				}
+			})
+		};
+
+		$scope.showRegistrationForm = function() {
+			$scope.loginState = 1;
+		};
+
+		$scope.showLoginForm = function() {
+			$scope.loginState = 0;
+		};
 
 	});

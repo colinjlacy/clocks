@@ -2,7 +2,6 @@ angular.module("clocks")
 	.controller("addCtrl", function($scope, $location, $rootScope, dbSrvc) {
 
 		// placeholder values
-		$scope.user = 1;
 		$scope.projectRate = 0;
 		$scope.targetHours = 0;
 		$scope.targetMinutes = 0;
@@ -21,7 +20,7 @@ angular.module("clocks")
 
 			var project = dbSrvc.processInputs($scope.projectRate, $scope.targetHours, $scope.targetMinutes, $scope.addHours, $scope.addMinutes);
 			project.title = $scope.projectTitle;
-			project.owner = $scope.user;
+			project.owner = $rootScope.user.id;
 
 			dbSrvc.insertProject(project).then(function(data) {
 				project.id = data;

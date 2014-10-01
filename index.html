@@ -34,14 +34,13 @@
 		<div class="row">
 			<div class="col-sm-12">
 				<header class="col-sm-12">
-					<h1 class="text-center"><a href="http://localhost:8888/clock/#/">Clockish</a></h1>
-					<p class="text-muted text-center">(Working title...)</p>
+					<h1 class="text-center"><a href="http://localhost:8888/clock/#/">Kloquette</a></h1>
 					<p class="text-muted">A time-tracking app built in Bootstrap 3, AngularJS, and CodeIgniter</p>
 				</header>
-				<strong class="add-button" ng-click="addNew()">Add New Project</strong>
-				<strong class="add-button" ng-click="editProjects()" ng-hide="removeProjects">Edit Projects</strong>
+				<strong class="add-button" ng-click="addNew()" ng-show="$root.user">Add New Project</strong>
+				<strong class="add-button" ng-click="editProjects()" ng-show="($root.projects.length >= 1) && $root.user && !removeProjects">Edit Projects</strong>
 				<strong class="add-button" ng-click="cancelEdit()" ng-show="removeProjects">Done Editing</strong>
-				<strong class="">Your Projects</strong>
+				<strong class="" ng-show="$root.projects">Your Projects</strong>
 				<nav class="nav">
 					<ul>
 						<li class="text-center" ng-repeat="project in projects">
