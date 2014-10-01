@@ -43,9 +43,7 @@ angular.module("clocks")
 		$scope.register.email = 'ashley@webcake.co';
 		$scope.register.emailConf = 'ashley@webcake.co';
 
-
-
-			$scope.registerUser = function() {
+		$scope.registerUser = function() {
 			userSrvc.register(
 				$scope.register.firstName,
 				$scope.register.lastName,
@@ -57,6 +55,14 @@ angular.module("clocks")
 				//$scope.register.ip
 				'141.164.238.158'
 			)
+		}
+
+		$scope.checkUser = function() {
+			userSrvc.checkUser()
+		}
+
+		$scope.logOutUser = function() {
+			userSrvc.logOutUser()
 		}
 
 	});

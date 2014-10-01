@@ -288,6 +288,8 @@ class Ion_auth
 	 *
 	 * @return void
 	 * @author Mathew
+	 *
+	 * Edited by Colin!
 	 **/
 	public function register($username, $password, $email, $additional_data = array(), $group_ids = array(), $ip) //need to test email activation
 	{

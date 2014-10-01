@@ -61,9 +61,11 @@ class Auth extends CI_Controller {
 		//log the user out
 		$logout = $this->ion_auth->logout();
 
+		echo "User Logged Out";
+
 		//redirect them to the login page
-		$this->session->set_flashdata('message', $this->ion_auth->messages());
-		redirect('auth/login', 'refresh');
+//		$this->session->set_flashdata('message', $this->ion_auth->messages());
+//		redirect('auth/login', 'refresh');
 	}
 
 	//change password
@@ -385,10 +387,16 @@ class Auth extends CI_Controller {
 			// Stash the ID of the inserted user in a variable
 			$result = $this->ion_auth->register($username, $password, $email, $additional_data, $group, $ip);
 
+			//check for "remember me"
+			$remember = false; // sets a default remember-me to false.  TODO: change this to be interactive
+
+			$login = $this->ion_auth->login($email, $password, $remember); // sends the post data to the data-model class, saves whatever is returned in a variable
+
 			// create a result array that indicates a successful operation, and sends back the user ID
 			$result_array = array(
 				'successful' => true,
-				'id'		 => $result
+				'id'		 => $result,
+				'login'		 => $login
 			);
 
 			// JSON encode, and send off to Angular
@@ -686,6 +694,17 @@ class Auth extends CI_Controller {
 		$view_html = $this->load->view($view, $this->viewdata, $render);
 
 		if (!$render) return $view_html;
+	}
+
+	function get_user()
+	{
+		if ($this->ion_auth->logged_in()) {
+			echo "Yeah buddy!";
+		}
+		else
+		{
+			echo "No one here!";
+		}
 	}
 
 }

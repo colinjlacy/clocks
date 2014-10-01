@@ -62,12 +62,54 @@ angular.module("clocks")
 				});
 				// returns the promise of the API call
 				return returnData.promise;
-			}
+			},
 
 			//getIp: function() {
 			//	$http({
 			//		url: ""
 			//	})
 			//}
+
+			checkUser: function() {
+				// set a deferred variable
+				var returnData = $q.defer();
+
+				// make the ajax call
+				$http({
+					url: "server/index.php/auth/get_user",
+					method: "GET"
+				}).success(function(data) {
+					// if a connection was made, store it in the deferred var
+					console.log(data);
+					returnData.resolve(data);
+				}).error(function (data) {
+					// else, store the error in the deferred var
+					data.error = "There was an error connecting to the database";
+					returnData.resolve(data);
+				});
+				// returns the promise of the API call
+				return returnData.promise;
+			},
+
+			logOutUser: function() {
+				// set a deferred variable
+				var returnData = $q.defer();
+
+				// make the ajax call
+				$http({
+					url: "server/index.php/auth/logout",
+					method: "GET"
+				}).success(function(data) {
+					// if a connection was made, store it in the deferred var
+					console.log(data);
+					returnData.resolve(data);
+				}).error(function (data) {
+					// else, store the error in the deferred var
+					data.error = "There was an error connecting to the database";
+					returnData.resolve(data);
+				});
+				// returns the promise of the API call
+				return returnData.promise;
+			}
 		}
 	});
