@@ -66,6 +66,7 @@ $lang['create_user_submit_btn']                        = 'Create User';
 $lang['create_user_validation_fname_label']            = 'First Name';
 $lang['create_user_validation_lname_label']            = 'Last Name';
 $lang['create_user_validation_email_label']            = 'Email Address';
+$lang['create_user_validation_username_label']         = 'Username';	// added by Colin!
 $lang['create_user_validation_phone1_label']           = 'First Part of Phone';
 $lang['create_user_validation_phone2_label']           = 'Second Part of Phone';
 $lang['create_user_validation_phone3_label']           = 'Third Part of Phone';
