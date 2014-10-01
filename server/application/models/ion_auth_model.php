@@ -980,7 +980,7 @@ class Ion_auth_model extends CI_Model
 		$this->trigger_events('extra_where');
 
 		// build and execute the query
-		$query = $this->db->select($this->identity_column . ', username, email, id, password, active, last_login')
+		$query = $this->db->select($this->identity_column . ', username, email, id, first_name, last_name, active, last_login')
 		                  ->where($this->identity_column, $identity)
 		                  ->limit(1)
 		                  ->get($this->tables['users']);

@@ -390,13 +390,18 @@ class Auth extends CI_Controller {
 			//check for "remember me"
 			$remember = false; // sets a default remember-me to false.  TODO: change this to be interactive
 
-			$login = $this->ion_auth->login($email, $password, $remember); // sends the post data to the data-model class, saves whatever is returned in a variable
+			$this->ion_auth->login($email, $password, $remember); // sends the post data to the data-model class, saves whatever is returned in a variable
 
 			// create a result array that indicates a successful operation, and sends back the user ID
 			$result_array = array(
 				'successful' => true,
-				'id'		 => $result,
-				'login'		 => $login
+				'user'		 => array(
+					'username'		=> $username,
+					'email'			=> $email,
+					'id'			=> $result,
+					'first_name'	=> $additional_data['first_name'],
+					'last_name'		=> $additional_data['last_name']
+				)
 			);
 
 			// JSON encode, and send off to Angular
@@ -699,7 +704,20 @@ class Auth extends CI_Controller {
 	// method created by Colin! to load the user on Angular load...
 	function get_user()
 	{
-		echo $this->ion_auth->get_user_id();
+		$id = $this->ion_auth->get_user_id();
+		if ($id) {
+			// build and execute the query
+			$query = $this->db->select('username, email, id, first_name, last_name, active, last_login')
+				->limit(1)
+				->get_where('users', array('id' => $id));
+
+
+			if ($query->num_rows() === 1) // check to make sure a row was actually returned from the database
+			{
+				$user = $query->row();
+				echo json_encode($user);
+			}
+		}
 	}
 
 }

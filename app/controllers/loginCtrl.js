@@ -7,13 +7,12 @@ angular.module("clocks")
 		// check for a logged-in user on load
 		(function() {
 			userSrvc.checkUser().then(function(result) {
-				if (result) {
+				if (result.id) {
 					$rootScope.user = result;
-					dbSrvc.loadProjects(result).then(function(data) {
+					dbSrvc.loadProjects(result.id).then(function(data) {
 						console.log(data);
 						// set them on the rootScope
 						$rootScope.projects = data;
-						//$rootScope.$apply();
 					});
 				}
 			})
@@ -31,6 +30,8 @@ angular.module("clocks")
 
 				// if there were no backend errors whatsoever
 				if (!login.error) {
+					console.log(login);
+					$rootScope.user = login;
 					console.log(login.id);
 					// get the projects for this user from the database
 
@@ -69,12 +70,19 @@ angular.module("clocks")
 				$scope.register.emailConf,
 				//$scope.register.ip
 				'141.164.238.158'
-			)
-		}
+			).then(function(data) {
+				if (data.success) {
+					console.log(data);
+					$rootScope.user = data.user;
+				} else {
+					$rootScope.message = "Uh oh, looks like there was an error trying to register your account."
+				}
+			});
+		};
 
 		$scope.checkUser = function() {
 			userSrvc.checkUser()
-		}
+		};
 
 		$scope.logOutUser = function() {
 			userSrvc.logOutUser()

@@ -19,7 +19,6 @@ angular.module("clocks")
 					}
 				}).success(function(data) {
 					// if a connection was made, store it in the deferred var
-					console.log(data);
 					returnData.resolve(data);
 				}).error(function (data) {
 					// else, store the error in the deferred var
@@ -53,7 +52,6 @@ angular.module("clocks")
 					data: dataObj
 				}).success(function(data) {
 					// if a connection was made, store it in the deferred var
-					console.log(data);
 					returnData.resolve(data);
 				}).error(function (data) {
 					// else, store the error in the deferred var
@@ -79,8 +77,8 @@ angular.module("clocks")
 					url: "server/index.php/auth/get_user",
 					method: "GET"
 				}).success(function(data) {
-					// if a connection was made, store it in the deferred var
 					console.log(data);
+					// if a connection was made, store it in the deferred var
 					returnData.resolve(data);
 				}).error(function (data) {
 					// else, store the error in the deferred var
@@ -101,7 +99,6 @@ angular.module("clocks")
 					method: "GET"
 				}).success(function(data) {
 					// if a connection was made, store it in the deferred var
-					console.log(data);
 					returnData.resolve(data);
 				}).error(function (data) {
 					// else, store the error in the deferred var
