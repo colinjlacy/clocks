@@ -99,6 +99,10 @@ angular.module("clocks")
 			})
 		};
 
+		$scope.sendForgotPasswordEmail = function() {
+			// do something using the $scope.forgotPasswordEmailAddress
+		};
+
 		$scope.showRegistrationForm = function() {
 			$scope.loginState = 1;
 		};
@@ -106,5 +110,9 @@ angular.module("clocks")
 		$scope.showLoginForm = function() {
 			$scope.loginState = 0;
 		};
+
+		$scope.showForgotPasswordForm = function() {
+			$scope.loginState = 3;
+		}
 
 	});

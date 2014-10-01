@@ -23,7 +23,7 @@
 					</form>
 					<hr/>
 					<p>
-						<strong><a href="" ng-click="showRegistrationForm()">Register</a></strong> | <a href="" ng-click="forgotPassword()">Forgot Your Password?</a>
+						<strong><a href="" ng-click="showRegistrationForm()">Register</a></strong> | <a href="" ng-click="showForgotPasswordForm()">Forgot Your Password?</a>
 					</p>
 				</figure>
 
@@ -59,6 +59,21 @@
 							<input type="email" class="form-control" ng-model="register.emailConf"/>
 						</div>
 						<button class="btn btn-primary" ng-click="registerUser()">Submit</button>
+					</form>
+					<hr/>
+					<p>
+						<strong><a href="" ng-click="showLoginForm()">Back to Login Form</a></strong>
+					</p>
+				</figure>
+
+				<!--Forgot Password form-->
+				<figure ng-show="loginState == 3">
+					<form>
+						<div class="form-group">
+							<label for="" class="control-label">Email Address</label>
+							<input type="text" class="form-control" ng-model="forgotPasswordEmailAddress"/>
+						</div>
+						<button class="btn btn-primary" ng-click="sendForgotPasswordEmail()">Submit</button>
 					</form>
 					<hr/>
 					<p>
