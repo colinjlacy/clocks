@@ -100,7 +100,15 @@ angular.module("clocks")
 		};
 
 		$scope.sendForgotPasswordEmail = function() {
-			// do something using the $scope.forgotPasswordEmailAddress
+			userSrvc.requestPasswordReset($scope.forgotPasswordEmailAddress).then(function(data) {
+				if (!data.error) {
+					console.log(data);
+					$rootScope.message = data;
+				} else {
+					console.log(data);
+					$rootScope.message = "Uh oh, there was a problem logging you out!";
+				}
+			})
 		};
 
 		$scope.showRegistrationForm = function() {

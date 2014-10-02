@@ -137,30 +137,48 @@ class Auth extends CI_Controller {
 	}
 
 	//forgot password
+	/*
+	 * Takes an HTTP POST request, processes the email to make sure the email is valid and the person exists,
+	 * and then adds a reset code to the database and sends an email with the code to the user
+	 */
 	function forgot_password()
 	{
+
+		// pulling the AJAX POST data into the global variable
+		// should make it available to the form validation class
+		$_POST = json_decode(file_get_contents("php://input"), true);
+
 		$this->form_validation->set_rules('email', $this->lang->line('forgot_password_validation_email_label'), 'required|valid_email');
 		if ($this->form_validation->run() == false)
 		{
+			/*
+			 * This section is run if the form entry fails validation.
+			 */
+
+			echo "Your email failed validation";
+
 			//setup the input
-			$this->data['email'] = array('name' => 'email',
-				'id' => 'email',
-			);
-
-			if ( $this->config->item('identity', 'ion_auth') == 'username' ){
-				$this->data['identity_label'] = $this->lang->line('forgot_password_username_identity_label');
-			}
-			else
-			{
-				$this->data['identity_label'] = $this->lang->line('forgot_password_email_identity_label');
-			}
-
-			//set any errors and display the form
-			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-			$this->_render_page('auth/forgot_password', $this->data);
+//			$this->data['email'] = array('name' => 'email',
+//				'id' => 'email',
+//			);
+//
+//			if ( $this->config->item('identity', 'ion_auth') == 'username' ){
+//				$this->data['identity_label'] = $this->lang->line('forgot_password_username_identity_label');
+//			}
+//			else
+//			{
+//				$this->data['identity_label'] = $this->lang->line('forgot_password_email_identity_label');
+//			}
+//
+//			//set any errors and display the form
+//			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+//			$this->_render_page('auth/forgot_password', $this->data);
 		}
 		else
 		{
+			/*
+			 * This section is run if the form entry passes validation
+			 */
 			// get identity from username or email
 			if ( $this->config->item('identity', 'ion_auth') == 'username' ){
 				$identity = $this->ion_auth->where('username', strtolower($this->input->post('email')))->users()->row();
@@ -181,13 +199,15 @@ class Auth extends CI_Controller {
 			if ($forgotten)
 			{
 				//if there were no errors
-				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
+//				$this->session->set_flashdata('message', $this->ion_auth->messages());
+//				redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
+				echo "The email was sent successfully";
 			}
 			else
 			{
-				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect("auth/forgot_password", 'refresh');
+//				$this->session->set_flashdata('message', $this->ion_auth->errors());
+//				redirect("auth/forgot_password", 'refresh');
+				echo "There was an error trying to send the email.";
 			}
 		}
 	}

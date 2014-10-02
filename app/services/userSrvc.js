@@ -107,6 +107,29 @@ angular.module("clocks")
 				});
 				// returns the promise of the API call
 				return returnData.promise;
+			},
+
+			requestPasswordReset: function(email) {
+				// set a deferred variable
+				var returnData = $q.defer();
+
+				// make the ajax call
+				$http({
+					url: "server/index.php/auth/forgot_password",
+					method: "POST",
+					data: {
+						email: email
+					}
+				}).success(function(data) {
+					// if a connection was made, store it in the deferred var
+					returnData.resolve(data);
+				}).error(function (data) {
+					// else, store the error in the deferred var
+					data.error = "There was an error connecting to the database";
+					returnData.resolve(data);
+				});
+				// returns the promise of the API call
+				return returnData.promise;
 			}
 		}
 	});
