@@ -23,7 +23,7 @@ angular.module("clocks")
 			}
 		})();
 
-		// set some basic data
+		// set some placeholder data
 		$scope.loginUsername = "admin@admin.com";
 		$scope.loginPassword = "password";
 

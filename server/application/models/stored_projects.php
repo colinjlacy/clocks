@@ -18,12 +18,8 @@ class Stored_projects extends CI_Model {
 		// Call the Model constructor
 		parent::__construct();
 	}
-	function insert_project()
+	function insert_project($post_data)
 	{
-		// get data from the passed JSON object
-		$post_data = json_decode(file_get_contents("php://input"), true);
-//		$post_data = $this->input->post();
-
 		// ratchet out that data to the local variables
 		$this->title = $post_data['title'];
 		$this->owner = $post_data['owner'];
@@ -47,23 +43,17 @@ class Stored_projects extends CI_Model {
 		return $this->db->get_where('projects', array('id' => $id), 1)->row();
 	}
 
-	function update_project()
+	function update_project($post_data)
 	{
-		// get data from the passed JSON object
-		$post_data = json_decode(file_get_contents("php://input"), true);
-
 		$time_spent = $post_data['seconds'];
 
 		$this->db->where('id', $post_data['id']);
 		$this->db->update('projects', array('time_spent' => $time_spent));
 	}
 
-	function delete_project()
+	function delete_project($post_data)
 	{
-		// get data from the passed JSON object
-		$post_data = json_decode(file_get_contents("php://input"), true);
-
-		$this->db->delete('projects', array('id' => $post_data['id']));
+		return $this->db->delete('projects', array('id' => $post_data['id']));
 	}
 
 }

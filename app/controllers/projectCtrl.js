@@ -10,6 +10,7 @@ angular.module("clocks")
 
 			// pass the ID to the database, pull the project being viewed
 			dbSrvc.getProject(id).then(function(data) {
+				console.log(data);
 
 				// revert the time_spent property to a readable time format
 				data.time = dbSrvc.revertFromSeconds(data.time_spent);
@@ -81,7 +82,7 @@ angular.module("clocks")
 			// convert local times to one giant second count
 			var seconds = dbSrvc.convertToSeconds($scope.viewProject.time.hours, $scope.viewProject.time.minutes, $scope.viewProject.time.seconds);
 			// update the project in the database
-			dbSrvc.updateProject($scope.viewProject.id, seconds);
+			dbSrvc.updateProject($scope.viewProject.id, seconds, $scope.viewProject.owner);
 		};
 
 	});

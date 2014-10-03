@@ -18,18 +18,20 @@ angular.module("clocks")
 				var url = 'server/index.php/projects/retrieve/' + id;
 				return Ajax.get(url);
 			},
-			updateProject: function(id, seconds) {
+			updateProject: function(id, seconds, owner) {
 				var url = "server/index.php/projects/update",
 					obj = {
 						id: id,
-						seconds: seconds
+						seconds: seconds,
+						owner: owner
 					};
 				return Ajax.post(url, obj);
 			},
-			deleteProject: function(id) {
+			deleteProject: function(id, owner) {
 				var url = "server/index.php/projects/delete",
 					obj = {
-						id: id
+						id: id,
+						owner: owner
 					};
 				return Ajax.post(url, obj);
 			},

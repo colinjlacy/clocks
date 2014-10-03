@@ -16,7 +16,7 @@ angular.module("clocks")
 		};
 
 		$scope.deleteProject = function(id, index) {
-			dbSrvc.deleteProject(id);
+			dbSrvc.deleteProject(id, $rootScope.user.id);
 			$rootScope.projects.splice(index, 1);
 		};
 

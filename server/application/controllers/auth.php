@@ -62,10 +62,6 @@ class Auth extends CI_Controller {
 		$logout = $this->ion_auth->logout();
 
 		echo "User Logged Out";
-
-		//redirect them to the login page
-//		$this->session->set_flashdata('message', $this->ion_auth->messages());
-//		redirect('auth/login', 'refresh');
 	}
 
 	//change password
@@ -148,7 +144,9 @@ class Auth extends CI_Controller {
 		// should make it available to the form validation class
 		$_POST = json_decode(file_get_contents("php://input"), true);
 
+		// This line validates the email address sent
 		$this->form_validation->set_rules('email', $this->lang->line('forgot_password_validation_email_label'), 'required|valid_email');
+
 		if ($this->form_validation->run() == false)
 		{
 			/*
@@ -167,6 +165,7 @@ class Auth extends CI_Controller {
 			/*
 			 * This section is run if the form entry passes validation
 			 */
+
 			// get identity from username or email
 			if ( $this->config->item('identity', 'ion_auth') == 'username' ){
 				$identity = $this->ion_auth->where('username', strtolower($this->input->post('email')))->users()->row();
@@ -175,27 +174,35 @@ class Auth extends CI_Controller {
 			{
 				$identity = $this->ion_auth->where('email', strtolower($this->input->post('email')))->users()->row();
 			}
+
+					// if no match was found for the email address sent, return an error.
 	            	if(empty($identity)) {
-		        	$this->ion_auth->set_message('forgot_password_email_not_found');
-		                $this->session->set_flashdata('message', $this->ion_auth->messages());
-                		redirect("auth/forgot_password", 'refresh');
+						$error = array(
+							"error"		=>	"password_reset_form",
+							"message"	=>	"This email was not found in our database."
+						);
+						echo json_encode($error);
+						return;
             		}
 
 			//run the forgotten password method to email an activation code to the user
 			$forgotten = $this->ion_auth->forgotten_password($identity->{$this->config->item('identity', 'ion_auth')});
 
+			/*
+			 * From here the user is either notified that the email was sent,
+			 * or that something went wrong while trying to send the email
+			 */
 			if ($forgotten)
 			{
-				//if there were no errors
-//				$this->session->set_flashdata('message', $this->ion_auth->messages());
-//				redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
 				echo "The email was sent successfully";
 			}
 			else
 			{
-//				$this->session->set_flashdata('message', $this->ion_auth->errors());
-//				redirect("auth/forgot_password", 'refresh');
-				echo "There was an error trying to send the email.";
+				$error = array(
+					"error"		=>	"password_reset_form",
+					"message"	=>	"There was a problem connecting to our database."
+				);
+				echo json_encode($error);
 			}
 		}
 	}
