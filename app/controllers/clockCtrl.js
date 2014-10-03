@@ -48,7 +48,6 @@ angular.module("clocks")
 				if (!data.error) {
 					$rootScope.projects = null;
 					$rootScope.user = null;
-					$scope.loginState = 0;
 				} else {
 					$rootScope.message = "Uh oh, there was a problem logging you out!";
 				}
