@@ -2,100 +2,38 @@
  * Created by colinjlacy on 8/31/14.
  */
 angular.module("clocks")
-.factory("dbSrvc", function($http, $q) {
+.factory("dbSrvc", function(Ajax) {
 		return {
 
 			// database operations
 			loadProjects: function(id) {
-				var returnData = $q.defer();
-
-				$http({
-					url: 'server/index.php/projects/load/' + id,
-					method: 'GET'
-				})
-					.success(function(data) {
-						returnData.resolve(data);
-					})
-					.error(function(error) {
-						console.log(error);
-						returnData.reject();
-					});
-				// returns the promise of the API call - whether successful or not
-				return returnData.promise;
+				var url = 'server/index.php/projects/load/' + id;
+				return Ajax.get(url);
 			},
 			insertProject: function(obj) {
-				// tell Angular to wait for iiiiiiiiiiiit....
-				var returnData = $q.defer();
-
-				$http({
-					url: "server/index.php/projects/insert",
-					method: "POST",
-					data: obj
-				})
-					.success(function(data) {
-						returnData.resolve(data);
-					})
-					.error(function(error) {
-						console.log(error);
-						returnData.reject(error);
-					});
-				// returns the promise of the API call - whether successful or not
-				return returnData.promise;
+				var url = "server/index.php/projects/insert";
+				return Ajax.post(url, obj);
 			},
 			getProject: function(id) {
-				// tell Angular to wait for iiiiiiiiiiiit....
-				var returnData = $q.defer();
-
-				$http({
-					url: "server/index.php/projects/retrieve/" + id,
-					method: "GET"
-//					params: {
-//						id: id
-//					}
-				})
-					.success(function(data) {
-						console.log(data);
-						returnData.resolve(data);
-					})
-					.error(function(error) {
-						console.log(error);
-						returnData.reject(error);
-					});
-				// returns the promise of the API call - whether successful or not
-				return returnData.promise;
+				var url = 'server/index.php/projects/retrieve/' + id;
+				return Ajax.get(url);
 			},
 			updateProject: function(id, seconds) {
-				$http({
-					url: "server/index.php/projects/update",
-					method: "POST",
-					data: {
+				var url = "server/index.php/projects/update",
+					obj = {
 						id: id,
 						seconds: seconds
-					}
-				})
-					.success(function(data) {
-						console.log(data);
-						console.log("project saved");
-					})
-					.error(function(error) {
-						console.log(error);
-					});
+					};
+				return Ajax.post(url, obj);
 			},
 			deleteProject: function(id) {
-				$http({
-					url: "server/index.php/projects/delete",
-					method: "POST",
-					data: {
+				var url = "server/index.php/projects/delete",
+					obj = {
 						id: id
-					}
-				})
-					.success(function(data) {
-						console.log(data);
-					})
-					.error(function(error) {
-						console.log(error);
-					});
+					};
+				return Ajax.post(url, obj);
 			},
+
 
 			// helper functions that process data
 			convertToSeconds: function(hours, minutes, seconds) {
