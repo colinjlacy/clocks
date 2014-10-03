@@ -2,7 +2,7 @@
  * Created by colinjlacy on 8/31/14.
  */
 angular.module("clocks")
-.controller("clockCtrl", function($scope, $rootScope, $location, dbSrvc) {
+.controller("clockCtrl", function($scope, $rootScope, $location, dbSrvc, userSrvc) {
 
 		// set a default user
 		$scope.user = 1;
@@ -37,6 +37,22 @@ angular.module("clocks")
 
 		$scope.remove = function(project) {
 			project.remove = true;
+		};
+
+		$scope.editUser = function(id) {
+			$location.path('/user/' + id);
+		};
+
+		$scope.logOutUser = function() {
+			userSrvc.logOutUser().then(function(data) {
+				if (!data.error) {
+					$rootScope.projects = null;
+					$rootScope.user = null;
+					$scope.loginState = 0;
+				} else {
+					$rootScope.message = "Uh oh, there was a problem logging you out!";
+				}
+			})
 		};
 
 

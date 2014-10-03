@@ -41,17 +41,20 @@ angular.module("clocks")
 			},
 
 			logOutUser: function() {
-				// set a deferred variable
 				var url = "server/index.php/auth/logout";
 				return Ajax.get(url);
 			},
 
 			requestPasswordReset: function(email) {
-				// set a deferred variable
 				var url = "server/index.php/auth/forgot_password",
 					obj = {
 						email: email
 					};
+				return Ajax.post(url, obj);
+			},
+
+			updateUser: function(obj, id) {
+				var url = "server/index.php/auth/edit_user/" + id;
 				return Ajax.post(url, obj);
 			}
 		}

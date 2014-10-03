@@ -11,4 +11,7 @@ angular.module("clocks", [
 		$routeProvider.when("/project/:id", {
 			templateUrl: "app/views/view-project.html"
 		});
+		$routeProvider.when("/user/:id", {
+			templateUrl: "app/views/edit-user.html"
+		});
 	}]);

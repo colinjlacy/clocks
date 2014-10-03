@@ -367,14 +367,8 @@ class Auth extends CI_Controller {
 	//create a new user
 	function create_user()
 	{
-//		$this->data['title'] = "Create User";
-//
-//		if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
-//		{
-//			redirect('auth', 'refresh');
-//		}
-
-		$_POST = json_decode(file_get_contents("php://input"), true); // takes the post data from the AJAX object
+		// takes the post data from the AJAX object
+		$_POST = json_decode(file_get_contents("php://input"), true);
 
 		$tables = $this->config->item('tables','ion_auth');
 
@@ -441,31 +435,40 @@ class Auth extends CI_Controller {
 	//edit a user
 	function edit_user($id)
 	{
-		$this->data['title'] = "Edit User";
+
+		$tables = $this->config->item('tables','ion_auth');
 
 		if (!$this->ion_auth->logged_in() || (!$this->ion_auth->is_admin() && !($this->ion_auth->user()->row()->id == $id)))
 		{
-			redirect('auth', 'refresh');
+			/*
+			 * This section runs if the user isn't logged in, isn't an admin, or the ID sent by the client doesn't match the one set in the Session
+			 */
+			$error = array(
+				"error"		=>	"mismatched_user_id",
+				"message"	=>	"You are not authorized to update this user."
+			);
+			echo json_encode($error);
 		}
 
 		$user = $this->ion_auth->user($id)->row();
 		$groups=$this->ion_auth->groups()->result_array();
 		$currentGroups = $this->ion_auth->get_users_groups($id)->result();
 
+		// takes the post data from the AJAX object
+		$_POST = json_decode(file_get_contents("php://input"), true);
+
 		//validate form input
 		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required|xss_clean');
 		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'required|xss_clean');
-		$this->form_validation->set_rules('groups', $this->lang->line('edit_user_validation_groups_label'), 'xss_clean');
+
 
 		if (isset($_POST) && !empty($_POST))
 		{
 			// do we have a valid request?
-			if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id'))
-			{
-				show_error($this->lang->line('error_csrf'));
-			}
+//			if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id'))
+//			{
+//				show_error($this->lang->line('error_csrf'));
+//			}
 
 			//update the password if it was posted
 			if ($this->input->post('password'))
@@ -474,13 +477,22 @@ class Auth extends CI_Controller {
 				$this->form_validation->set_rules('password_confirm', $this->lang->line('edit_user_validation_password_confirm_label'), 'required');
 			}
 
+			if ($this->input->post('email') != $this->ion_auth->user()->row()->email)
+			{
+				$this->form_validation->set_rules('email', $this->lang->line('edit_user_validation_email_label'), 'required|valid_email|is_unique['.$tables['users'].'.email|matches[email_confirm]]');
+				$this->form_validation->set_rules('email', $this->lang->line('edit_user_validation_email_conf_label'), 'required');
+			}
+
+			if ($this->input->post('username') != $this->ion_auth->user()->row()->username)
+			{
+				$this->form_validation->set_rules('username', $this->lang->line('edit_user_validation_username_label'), 'required|xss_clean|is_unique['.$tables['users'].'.username]');
+			}
+
 			if ($this->form_validation->run() === TRUE)
 			{
 				$data = array(
 					'first_name' => $this->input->post('first_name'),
 					'last_name'  => $this->input->post('last_name'),
-					'company'    => $this->input->post('company'),
-					'phone'      => $this->input->post('phone'),
 				);
 				
 				//update the password if it was posted
@@ -488,8 +500,16 @@ class Auth extends CI_Controller {
 				{
 					$data['password'] = $this->input->post('password');
 				}
+				if ($this->input->post('email') != $this->ion_auth->user()->row()->email)
+				{
+					$data['email'] = $this->input->post('email');
+				}
+				if ($this->input->post('username') != $this->ion_auth->user()->row()->username)
+				{
+					$data['username'] = $this->input->post('username');
+				}
 
-				$this->ion_auth->update($user->id, $data);
+					$this->ion_auth->update($user->id, $data);
 
 				// Only allow updating groups if user is admin
 				if ($this->ion_auth->is_admin())

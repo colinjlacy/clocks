@@ -1,0 +1,48 @@
+<div class="jumbotron" ng-controller="loginCtrl">
+	<div class="row">
+		<div class="col-sm-12">
+			<h2>Edit your Information</h2>
+			<figure>
+				<form>
+					<div class="form-group">
+						<label for="" class="control-label">First Name</label>
+						<input type="text" class="form-control" ng-model="update.first_name"/>
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">Last Name</label>
+						<input type="text" class="form-control" ng-model="update.last_name"/>
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">Username</label>
+						<input type="text" class="form-control" ng-model="update.username"/>
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">Email Address</label>
+						<input type="email" class="form-control" ng-model="update.email"/>
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">Email Confirmation</label>
+						<input type="email" class="form-control" ng-model="update.emailConf"/>
+					</div>
+					
+					<hr/>
+					<h3>Update your Password</h3>
+					<p>If you would like to update your password, enter your new password here.  Otherwise, leave it blank to keep your current password.</p>
+					<div class="form-group">
+						<label for="" class="control-label">Password</label>
+						<input type="password" class="form-control" ng-model="passwordUpdate.password"/>
+					</div>
+					<div class="form-group">
+						<label for="" class="control-label">Password Confirmation</label>
+						<input type="password" class="form-control" ng-model="passwordUpdate.passConf"/>
+					</div>
+					<hr/>
+					
+					<button class="btn btn-primary" ng-click="updateUser()">Submit</button>
+					<button class="btn btn-default" ng-click="cancelUpdate()">Cancel</button>
+
+				</form>
+			</figure>
+		</div>
+	</div>
+</div>

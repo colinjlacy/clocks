@@ -38,6 +38,12 @@
 					<h1 class="text-center"><a href="http://localhost:8888/clock/#/">Kloquette</a></h1>
 					<p class="text-muted">A time-tracking app built in Bootstrap 3, AngularJS, and CodeIgniter</p>
 				</header>
+				<div class="half-button" ng-show="$root.user">
+					<strong ng-click="editUser($root.user.id)" class="add-button fa fa-cogs"></strong>
+				</div>
+				<div class="half-button" ng-show="$root.user">
+					<strong ng-click="logOutUser()" class="add-button fa fa-sign-out"></strong>
+				</div>
 				<strong class="add-button" ng-click="addNew()" ng-show="$root.user">Add New Project</strong>
 				<strong class="add-button" ng-click="editProjects()" ng-show="($root.projects.length >= 1) && $root.user && !removeProjects">Edit Projects</strong>
 				<strong class="add-button" ng-click="cancelEdit()" ng-show="removeProjects">Done Editing</strong>

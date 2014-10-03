@@ -2,7 +2,7 @@
  * Created by colinjlacy on 9/19/14.
  */
 angular.module("clocks")
-	.controller("loginCtrl", function($scope, $q, $rootScope, $http, dbSrvc, userSrvc) {
+	.controller("loginCtrl", function($scope, $rootScope, $routeParams, dbSrvc, userSrvc) {
 
 		$scope.loginState = $rootScope.user ? 2 : 0; // default login state
 
@@ -11,8 +11,13 @@ angular.module("clocks")
 			if(!$rootScope.user) {
 				userSrvc.checkUser().then(function(result) {
 					if (result.id) {
+						// set the user's information to the root scope
 						$rootScope.user = result;
-						$scope.loginState = 2;
+						// set the user's information to the update property
+						$scope.update = result;
+						// give the update property a starting email confirmation value
+						$scope.update.emailConf = $scope.update.email;
+						// loads the projects for this user
 						dbSrvc.loadProjects(result.id).then(function(data) {
 							console.log(data);
 							// set them on the rootScope
@@ -35,7 +40,13 @@ angular.module("clocks")
 
 				// if there were no backend errors whatsoever
 				if (!login.error) {
+					// set the user's information to the root scope
 					$rootScope.user = login;
+					// set the user's information to the update property
+					$scope.update = login;
+					// give the update property a starting email confirmation value
+					$scope.update.emailConf = $scope.update.email;
+					// set the new login state
 					$scope.loginState = 2;
 					// get the projects for this user from the database
 					dbSrvc.loadProjects(login.id).then(function(data) {
@@ -50,6 +61,38 @@ angular.module("clocks")
 
 		};
 
+		$scope.passwordUpdate = ""; // declares this so that it can be used in a minute...
+
+		$scope.updateUser = function() {
+			var obj = {
+				first_name: $scope.update.first_name,
+				last_name: $scope.update.last_name,
+				username: $scope.update.username,
+				email: $scope.update.email,
+				email_confirm: $scope.update.emailConf
+				},
+				id = $routeParams.id;
+
+			if ($scope.passwordUpdate.password && $scope.passwordUpdate.passConf) {
+				obj.password = $scope.passwordUpdate.password;
+				obj.password_confirm = $scope.passwordUpdate.passConf;
+			}
+
+			userSrvc.updateUser(obj, id).then(function(result) {
+					if (!result.error) {
+						console.log(result);
+						// set the user's information to the root scope
+						$rootScope.user.first_name = $scope.update.first_name;
+						$rootScope.user.last_name = $scope.update.last_name;
+						$rootScope.user.email = $scope.update.email;
+						$rootScope.user.emailConf = $scope.update.email_confirm;
+						// set some feedback data
+						$rootScope.message = result;
+					} else {
+						$rootScope.message = "Uh oh, looks like there was an error trying to register your account."
+					}
+				});
+		};
 
 		$scope.register = {};
 
@@ -121,6 +164,7 @@ angular.module("clocks")
 
 		$scope.showForgotPasswordForm = function() {
 			$scope.loginState = 3;
-		}
+		};
+
 
 	});
