@@ -105,8 +105,8 @@ angular.module("clocks")
 					console.log(data);
 					$rootScope.message = data;
 				} else {
-					console.log(data);
-					$rootScope.message = "Uh oh, there was a problem logging you out!";
+					$rootScope.error = data.error;
+					$rootScope.message = data.message;
 				}
 			})
 		};

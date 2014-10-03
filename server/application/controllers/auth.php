@@ -155,24 +155,12 @@ class Auth extends CI_Controller {
 			 * This section is run if the form entry fails validation.
 			 */
 
-			echo "Your email failed validation";
+			$error = array(
+				"error"		=>	"password_reset_form",
+				"message"	=>	"Your email address failed validation"
+			);
+			echo json_encode($error);
 
-			//setup the input
-//			$this->data['email'] = array('name' => 'email',
-//				'id' => 'email',
-//			);
-//
-//			if ( $this->config->item('identity', 'ion_auth') == 'username' ){
-//				$this->data['identity_label'] = $this->lang->line('forgot_password_username_identity_label');
-//			}
-//			else
-//			{
-//				$this->data['identity_label'] = $this->lang->line('forgot_password_email_identity_label');
-//			}
-//
-//			//set any errors and display the form
-//			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-//			$this->_render_page('auth/forgot_password', $this->data);
 		}
 		else
 		{
